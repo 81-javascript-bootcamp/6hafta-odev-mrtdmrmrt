@@ -11,7 +11,7 @@ module.exports = merge(common, {
         new webpack.ProgressPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: './dist/index.html'
+            template: './src/public/index.html'
         })
     ]
 });
