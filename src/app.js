@@ -26,6 +26,7 @@ class PomodoroApp {
     this.$startBtn = document.querySelector(startBtnSelector);
     this.$pauseBtn = document.querySelector(pauseBtnSelector);
     this.$timerEl = document.querySelector(timerElSelector);
+
     this.currentInterval = null;
     this.breakInterval = null;
     this.currentRemaining = null;
@@ -45,6 +46,7 @@ class PomodoroApp {
     const $newTaskEl = document.createElement('tr');
     $newTaskEl.innerHTML = `<th scope="row">${task.id}</th><td>${task.title}</td> <td><button id='${task.id}' class="btn-delete"><i class="fa fa-trash"></i></button></td>`;
     $newTaskEl.setAttribute('data-taskId', `task${task.id}`);
+    $newTaskEl.classList.add('task-tr');
     if (task.completed) {
       $newTaskEl.classList.add('completed');
     }
@@ -74,15 +76,19 @@ class PomodoroApp {
     const $deleteBtn = document.querySelectorAll('.btn-delete');
     $deleteBtn.forEach((element) => {
       element.addEventListener('click', (e) => {
-        deleteTaskToApi(element.id).then((res) => {
-          if (res.status == '200') {
-            const $newTaskEl = this.$tableTbody.querySelectorAll('tr');
-            $newTaskEl.forEach((tr) => {
-              tr.remove();
-            });
-            this.fillTasksTable();
-          }
-        });
+        const $parentTR = element.parentNode.parentNode;
+        $parentTR.classList.add('task-tr-remove');
+        setTimeout(() => {
+          deleteTaskToApi(element.id).then((res) => {
+            if (res.status == '200') {
+              const $newTaskEl = this.$tableTbody.querySelectorAll('tr');
+              $newTaskEl.forEach((tr) => {
+                tr.remove();
+              });
+              this.fillTasksTable();
+            }
+          });
+        }, 700);
       });
     });
   }
