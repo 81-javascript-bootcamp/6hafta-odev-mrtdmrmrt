@@ -37,6 +37,7 @@ class PomodoroApp {
       .then((data) => data.json())
       .then((newTask) => {
         this.addTaskToTable(newTask);
+        this.fillDeleteTask();
       });
   }
 
@@ -93,9 +94,6 @@ class PomodoroApp {
     } else {
       this.handleEnd();
     }
-    //this.currentTask ? this.startTask() : this.handleEnd();
-    // ternary ifler deger return eden ve assignment olan durumlarda kullaniliyor
-    //const isActive = document.querySelector('#active') ? 'yes' : 'no';
   }
   initializeBreakTimer(deadline) {
     createTimer({
