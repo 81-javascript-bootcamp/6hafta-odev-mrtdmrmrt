@@ -42,6 +42,11 @@
     background-color: #911111;
 }
 
+th,
+td {
+    vertical-align: middle !important;
+}
+
 tr.active {
     background: #506350;
     color: #fff;
